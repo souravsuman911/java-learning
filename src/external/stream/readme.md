@@ -297,7 +297,7 @@ Stateful
     → Maintains count state
 
 
-## 🔹 7. Collectors – Commonly Used
+🔹 7. Collectors – Commonly Used
 
 Collectors are used with `collect()` to **accumulate stream elements** into a final result.
 
@@ -331,7 +331,7 @@ Collectors are used with `collect()` to **accumulate stream elements** into a fi
 
 ---
 
-## 🔹 8. `groupingBy()` (Collector)
+🔹 8. `groupingBy()` (Collector)
 
 Used to **group elements based on a key**.
 
@@ -353,7 +353,7 @@ Used to **group elements based on a key**.
 
 ---
 
-## 🔹 9. `partitioningBy()` (Collector)
+🔹 9. `partitioningBy()` (Collector)
 
 Used to **split elements into two groups** based on a predicate.
 
@@ -367,7 +367,7 @@ Used to **split elements into two groups** based on a predicate.
 
 ---
 
-## 🔹 10. `mapping()` (Downstream Collector)
+🔹 10. `mapping()` (Downstream Collector)
 
 Used to **transform elements before collecting**.
 
@@ -381,7 +381,7 @@ Used to **transform elements before collecting**.
 
 ---
 
-## 🔹 11. `reducing()` (Collector)
+🔹 11. `reducing()` (Collector)
 
 Used for **custom reduction logic** inside `collect()`.
 
@@ -394,7 +394,7 @@ Used for **custom reduction logic** inside `collect()`.
 
 ---
 
-## 🔹 12. Stream Reuse Limitation
+🔹 12. Stream Reuse Limitation
 
 Streams are **single-use**.
 
@@ -404,7 +404,7 @@ Once a terminal operation is executed:
 
 ---
 
-## 🔹 13. Ordering in Streams
+🔹 13. Ordering in Streams
 
 Encounter Order:
 - Maintained for ordered sources (List, LinkedHashSet)
@@ -420,7 +420,7 @@ Order-insensitive operations:
 
 ---
 
-## 🔹 14. Parallel Streams
+🔹 14. Parallel Streams
 
 parallelStream()  
 → Executes stream using ForkJoinPool
@@ -437,7 +437,7 @@ Avoid when:
 
 ---
 
-## 🔹 15. Side Effects (Interview Red Flag)
+🔹 15. Side Effects (Interview Red Flag)
 
 Side effect:
 - Modifying external state inside stream operations
@@ -452,7 +452,7 @@ Best practice:
 
 ---
 
-## 🔹 16. Performance Considerations
+🔹 16. Performance Considerations
 
 - Prefer primitive streams to avoid boxing
 - Use max()/min() instead of sorting when possible
@@ -461,7 +461,7 @@ Best practice:
 
 ---
 
-## 🔹 17. Stream API – Interview One-Liners
+🔹 17. Stream API – Interview One-Liners
 
 - Streams are lazy
 - Intermediate operations execute only after terminal operation
