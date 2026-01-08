@@ -1,9 +1,12 @@
 package external.stream;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 enum Department {
     IT('I'),
@@ -32,6 +35,23 @@ class Employee {
         this.salary = salary;
         this.dept = dept;
     }
+
+    long getId(){
+        return id;
+    }
+
+    Double getSalary(){
+        return salary;
+    }
+
+    String getName() {
+        return name;
+    }
+
+    Department getDept(){
+        return dept;
+    }
+
 }
 public class StreamPractice2 {
 
@@ -68,23 +88,30 @@ public class StreamPractice2 {
         StreamPractice2.printDetails(employees);
 
         // From a list of employees, filter employees whose salary is greater than 10,000.
-        employees.stream()
-                .filter(employee -> employee.salary > 10000)
-                .forEach(e -> System.out.println(e.name));
+        List<String> eGreaterThan10K = employees.stream()
+                .filter(e -> e.getSalary() > 10000)
+                .map(Employee::getName)
+                .collect(Collectors.toList());
+
+        System.out.println(eGreaterThan10K);
 
         // Find the employee with the highest salary using streams.
-        Optional<Employee> emp = employees.stream().sorted((a, b) -> b.salary.compareTo(a.salary))
-                .findFirst();
+        Optional<Employee> highestSalary = employees.stream()
+                .max(Comparator.comparing(Employee::getSalary));
 
-        emp.ifPresent(StreamPractice2::printEmp);
+        highestSalary.ifPresent(StreamPractice2::printEmp);
 
         // Calculate the sum of all employee salaries.
-        AtomicReference<Double> sum = new AtomicReference<>((double) 0);
-        employees.forEach(e -> sum.updateAndGet(v -> v + e.salary));
+        Double sumOfSalary = employees.stream()
+                .mapToDouble(Employee::getSalary)
+                .sum();
 
-        System.out.println(sum);
-        
-        employees.stream().re
+        System.out.println(sumOfSalary);
+
+        // Group employees by department
+        employees.stream()
+                .map(Employee::getDept)
+                .g
 
 
 

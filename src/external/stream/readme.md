@@ -295,3 +295,176 @@ Stateful
     
     limit()  
     → Maintains count state
+
+
+## 🔹 7. Collectors – Commonly Used
+
+Collectors are used with `collect()` to **accumulate stream elements** into a final result.
+
+    toList()  
+    → Collects elements into a List  
+    → Returns: `List<T>`
+    
+    toSet()  
+    → Collects elements into a Set  
+    → Returns: `Set<T>`
+    
+    toMap(keyMapper, valueMapper)  
+    → Collects elements into a Map  
+    → Throws exception if duplicate keys
+    
+    counting()  
+    → Counts number of elements  
+    → Returns: `Long`
+    
+    summingInt / summingLong / summingDouble  
+    → Sums numeric values  
+    → Returns: `int / long / double`
+    
+    averagingInt / averagingLong / averagingDouble  
+    → Calculates average  
+    → Returns: `Double`
+    
+    joining()  
+    → Joins elements into a String  
+    → Returns: `String`
+
+---
+
+## 🔹 8. `groupingBy()` (Collector)
+
+Used to **group elements based on a key**.
+
+    groupingBy(Function)  
+    → Groups elements into `Map<K, List<T>>`
+    
+    groupingBy(Function, Collector)  
+    → Groups elements and applies downstream collector  
+    → Returns: `Map<K, D>`
+    
+    Common downstream collectors:
+    - counting()
+    - summingInt / summingDouble
+    - averagingInt / averagingDouble
+    - mapping()
+    - reducing()
+    - maxBy()
+    - minBy()
+
+---
+
+## 🔹 9. `partitioningBy()` (Collector)
+
+Used to **split elements into two groups** based on a predicate.
+
+    partitioningBy(Predicate)  
+    → Partitions into true and false  
+    → Returns: `Map<Boolean, List<T>>`
+    
+    Difference from groupingBy:
+    - Always creates exactly two groups
+    - Key type is always `Boolean`
+
+---
+
+## 🔹 10. `mapping()` (Downstream Collector)
+
+Used to **transform elements before collecting**.
+
+    mapping(Function, Collector)  
+    → Applies mapping during collection  
+    → Used inside groupingBy()
+    
+    Purpose:
+    - Extract specific fields
+    - Avoid collecting full objects
+
+---
+
+## 🔹 11. `reducing()` (Collector)
+
+Used for **custom reduction logic** inside `collect()`.
+
+    reducing(identity, mapper, combiner)  
+    → Reduces elements into a single result
+    
+    Difference:
+    - reduce() → stream-level reduction
+    - reducing() → collector-level reduction
+
+---
+
+## 🔹 12. Stream Reuse Limitation
+
+Streams are **single-use**.
+
+Once a terminal operation is executed:
+- Stream is consumed
+- Reuse throws `IllegalStateException`
+
+---
+
+## 🔹 13. Ordering in Streams
+
+Encounter Order:
+- Maintained for ordered sources (List, LinkedHashSet)
+- Not guaranteed for unordered sources (Set, parallel streams)
+
+Order-sensitive operations:
+- forEachOrdered()
+- findFirst()
+
+Order-insensitive operations:
+- forEach()
+- findAny()
+
+---
+
+## 🔹 14. Parallel Streams
+
+parallelStream()  
+→ Executes stream using ForkJoinPool
+
+Characteristics:
+- Processes elements concurrently
+- Order is not guaranteed
+- Best for CPU-intensive tasks
+
+Avoid when:
+- Using shared mutable state
+- Performing I/O operations
+- Dataset is small
+
+---
+
+## 🔹 15. Side Effects (Interview Red Flag)
+
+Side effect:
+- Modifying external state inside stream operations
+
+Why avoid:
+- Breaks functional programming model
+- Causes issues in parallel execution
+- Makes code hard to reason about
+
+Best practice:
+- Stream operations should be stateless
+
+---
+
+## 🔹 16. Performance Considerations
+
+- Prefer primitive streams to avoid boxing
+- Use max()/min() instead of sorting when possible
+- Avoid unnecessary intermediate operations
+- Streams favor readability over micro-optimizations
+
+---
+
+## 🔹 17. Stream API – Interview One-Liners
+
+- Streams are lazy
+- Intermediate operations execute only after terminal operation
+- Streams do not store data
+- Streams are not thread-safe by default
+- Parallel streams require stateless operations
